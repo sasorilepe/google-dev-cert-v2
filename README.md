@@ -1,13 +1,13 @@
 # Google Mobile Web Specialist Certification Guide
 
-1. [Basic Website Layout and Styling](#1-basic-website-layout-and-styling)
-2. [Front End Networking](#2-front-end-networking)
-3. [Accessibility](#3-accessibility)
-4. [Progressive Web Apps](#4-progressive-web-apps)
-5. [Performance Optimization and Caching](#5-performance-optimization-and-caching)
-6. [Testing and Debugging](#6-testing-and-debugging)
-7. [ES2015 Concepts and Syntax](#7-es2015-concepts-and-syntax)
-8. [Mobile Web Forms](#8-mobile-web-forms)
+1. [Basic Website Layout and Styling](##basic-website-layout-and-styling)
+2. [Front End Networking](##front-end-networking)
+3. [Accessibility](##accessibility)
+4. [Progressive Web Apps](##progressive-web-apps)
+5. [Performance Optimization and Caching](##performance-optimization-and-caching)
+6. [Testing and Debugging](##testing-and-debugging)
+7. [ES2015 Concepts and Syntax](##es2015-concepts-and-syntax)
+8. [Mobile Web Forms](##mobile-web-forms)
 
 ## Basic Website Layout and Styling
 
