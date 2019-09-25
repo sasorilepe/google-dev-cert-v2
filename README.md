@@ -17,6 +17,94 @@
 * [Web Fundamentals -> Responsive Web Design Basics](https://developers.google.com/web/fundamentals/design-and-ux/responsive/)
 * [Web Fundamentals -> Add Touch to Your Site](https://developers.google.com/web/fundamentals/design-and-ux/input/touch/)
 
+### Responsive Design
+
+#### Setting the Visual Viewport   
+
+* If the viewport tag is not set, the page will be zoomed out to fit the fixed-width content on the screen.
+* The width property controls the size of the viewport. If it is set to the special value `device-width`, the size of the viewport will be the width of the screen in CSS pixels at a scale of 100%.
+* The initial-scale property controls the zoom level when the page is first loaded.
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```
+
+#### Using Media Queries
+
+* When the browser's width becomes 48rem (768 pixels at browser's default font size or 48 times the default font size in the user's browser), the layout changes from three columns to one column. The **max-width** property means that the media query applies to a content of 48 rem or less.
+* Shorthand `padding` with three values means `padding: top | right & left | bottom`.
+* It works only with the media type **print**.
+
+```css
+/* Original CSS */
+.no-flexbox .container .col {
+    width: 27%;
+    padding: 30px 3.15% 0;
+    float: left;
+}
+
+/* Media query */
+@media screen and (max-width: 48rem) {
+  .container .col {
+    width: 95%;
+  }
+}
+```
+
+#### Using Flexbox
+
+* The first rule defines the `container div` as the flex container.
+* The second rule uses the `.col` class to create our equal width flex children.
+
+```css
+.container {
+  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+  background: #eee;  
+  overflow: auto;
+}
+
+.container .col {
+  flex: 1;
+  padding: 1rem;
+}
+```
+
+##### Properties of Flex Container (Parent)
+
+**DisDirWrapFlow JuconAitAcon**
+
+* `display: flex | inline-flex`
+* `flex-direction: row | row-reverse |column | column-reverse`
+* `flex-wrap: nowrap | wrap | wrap-reverse`
+* `flex-flow: <flex-direction> <flex-wrap>` (Shorthand)
+* `justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly`
+* `align-items: flex-start | flex-end | center | stretch | baseline`
+* `align-content: flex-start | flex-end | center | stretch | space-between | space-around`
+
+##### Properties of Flex Items (Children)
+
+**OrGrowShriBas FlexAself**
+
+* `order: <integer>`
+* `flex-grow: <positive number>`
+* `flex-shrink: <positive number>`
+* `flex-basis <length> | auto`
+* `flex: <flex-grow> <flex-shrink> <flex-basis>`
+* `align-self: auto | flex-start | flex-end | center | baseline | stretch`
+
+#### Adding Modernizr
+
+* Modernizr is a feature detection tool that simplifies testing for Flexbox support.
+* This runs the test on page-load and appends the class `flexbox` to the `<html>` element if the browser supports Flexbox. Otherwise, it appends a `no-flexbox` class to the `<html>` element.
+
+```html
+<script src="modernizr-custom.js"></script>
+```
+
+### Responsive Images
+
 ## Front End Networking
 
 * [Codelabs -> Fetch API](https://codelabs.developers.google.com/codelabs/pwa-fetch/index.html?index=..%2F..dev-pwa-training#0)
