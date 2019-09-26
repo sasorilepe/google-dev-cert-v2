@@ -11,8 +11,8 @@
 
 ## Basic Website Layout and Styling
 
-* [Codelabs -> Responsive design](https://codelabs.developers.google.com/codelabs/pwa-responsive-design/index.html?index=..%2F..dev-pwa-training#0)
-* [Codelabs -> Responsive images](https://codelabs.developers.google.com/codelabs/pwa-responsive-images/index.html?index=..%2F..dev-pwa-training#0)
+* [Codelabs -> Responsive design](https://codelabs.developers.google.com/codelabs/pwa-responsive-design/index.html?index=..%2F..dev-pwa-training#0) [:point_down:](#responsive-design)
+* [Codelabs -> Responsive images](https://codelabs.developers.google.com/codelabs/pwa-responsive-images/index.html?index=..%2F..dev-pwa-training#0) [:point_down:](#responsive-images)
 * [Web Fundamentals -> Video](https://developers.google.com/web/fundamentals/media/video)
 * [Web Fundamentals -> Responsive Web Design Basics](https://developers.google.com/web/fundamentals/design-and-ux/responsive/)
 * [Web Fundamentals -> Add Touch to Your Site](https://developers.google.com/web/fundamentals/design-and-ux/input/touch/)
@@ -21,7 +21,7 @@
 
 * [Setting the Visual Viewport](#setting-the-visual-viewport)
 * [Using Media Queries](#using-media-queries)
-* [Using Flexbox][#using-flexbox]
+* [Using Flexbox](#using-flexbox)
 * [Adding Modernizr](#adding-modernizr)
 
 #### Setting the Visual Viewport   
