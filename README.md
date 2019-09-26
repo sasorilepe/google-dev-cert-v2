@@ -105,6 +105,114 @@
 
 ### Responsive Images
 
+### Setting the Relative Width
+
+* The value `max-width` represents a percentage of the containing element.
+
+```css
+img {
+  max-width: 100%;
+}
+```
+
+### Using the srcset attribute
+
+* The goal is to get the browser to fetch the version of the image with the smallest dimensions that is still bigger than the final display size of the image.
+* `srcset` lets us list a set of images at different resolutions for the browser to choose from when fetching the image.
+
+#### Adding a srcset
+
+* If you don't specify a condition, the browser's choice always will be the first image in the list.
+
+```html
+<img srcset="images/sfo-1600_large.jpg, images/sfo-1000_large.jpg, images/sfo-800_medium.jpg, images/sfo-500_small.jpg">
+```
+
+#### Adding width descriptors to the srcset
+
+* By adding a width descriptor to each file in the `srcset`, we are telling the browser the width of each image in pixels before it fetches the image.
+* 800w means narrower than (less than) 800px, 500w means narrower than 500px and so on.
+* You can also optionally specify a pixel density instead of a width. However, **you cannot specify both pixel densities and widths in the same `srcset` attribute**.
+* **srcset="path1 width1, path2 width2 ..."**
+
+```html
+<img srcset="images/sfo-1600_large.jpg 1600w, images/sfo-1000_large.jpg 1000w, images/sfo-800_medium.jpg 800w, images/sfo-500_small.jpg 500w">
+```
+
+### Using the sizes attribute
+
+#### Displaying an image at half the width of the viewport (50vw)
+
+* The transition effect will start when the specified CSS property (width) changes value.
+
+```css
+img#sfo {
+  transition: width 0.5s;
+  max-width: 50vw;
+}
+```
+#### Adding the sizes attribute to the image
+
+* Because the CSS is parsed after the HTML at runtime, we need a way to tell the browser beforehand if the images will be displayed at a different size.
+* We can give `img` a `sizes` attribute to tell the browser the display size of the image before it is fetched.
+* The `sizes` value matches the image's `max-width` value in the CSS.
+* The browser knows its own viewport width and the pixel density of the user's device, and we have given it the source files' dimensions (using the width descriptor) and the image sizes relative to the viewport (using the sizes attribute).
+
+```html
+<img id="sfo" src="images/sfo-500_small.jpg" srcset="images/sfo-1600_large.jpg 1600w, images/sfo-1000_large.jpg 1000w, images/sfo-800_medium.jpg 800w, images/sfo-500_small.jpg 500w" sizes="50vw" alt="View from aircraft window near San Francisco airport">
+```
+### Using media queries
+
+#### Adding a media query to the CSS
+
+* The media query tests the viewport width of the screen, and applies the CSS if the viewport is less than 700px wide.
+* The image should resize to fill 90% of the window width.
+
+```css
+@media screen and (max-width: 700px) {
+  img#sfo {
+    max-width: 90vw;
+    width: 90vw;
+  }
+}
+```
+
+#### Adding the media query to the sizes attribute
+
+* We can tell the browser about the media query in the sizes attribute so that it fetches the correct image when the image changes size.
+* If we resize the browser window so that it is 600px wide, the browser should fetch `sfo-800_medium.jpg` on a 1x display.
+* If we resize the browser window so that it is 700px or less, the image will have a width of 90% of the window width.
+* **sizes = "width1 (optional media query), width2 (optional media query)...">**
+
+```html
+<img id="sfo" srcset="images/sfo-1600_large.jpg 1600w, images/sfo-1000_large.jpg 1000w, images/sfo-800_medium.jpg 800w, images/sfo-500_small.jpg 500w"
+  sizes="(max-width: 700px) 90vw, 50vw" alt="View from aircraft window near San Francisco airport">
+```
+
+### Using the picture and source elements
+
+* The picture element lets us define multiple source files using the source tag.
+* Instead of giving the browser the image sizes and letting it decide which files to use, we can define the images to use at each window size.
+
+```html
+<picture>
+  <source media="(min-width: 750px)"
+          srcset="images/horses-1600_large_2x.jpg 2x,
+                  images/horses-800_large_1x.jpg" />
+  <source media="(min-width: 500px)"
+          srcset="images/horses_medium.jpg" />
+  <img src="images/horses_small.jpg" alt="Horses in Hawaii">
+</picture>
+```
+
+### srcset
+
+One or more strings separated by commas, indicating possible image sources for the user agent to use. Each string is composed of:
+1. A URL to an image
+2. Optionally, whitespace followed by one of:
+  * A width descriptor (a positive integer directly followed by w). The width descriptor is divided by the source size given in the sizes attribute to calculate the effective pixel density.
+  * A pixel density descriptor (a positive floating point number directly followed by x).
+
 ## Front End Networking
 
 * [Codelabs -> Fetch API](https://codelabs.developers.google.com/codelabs/pwa-fetch/index.html?index=..%2F..dev-pwa-training#0)
