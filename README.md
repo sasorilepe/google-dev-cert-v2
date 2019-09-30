@@ -394,6 +394,17 @@ The branch breaks, and he starts to fall.
 | loop | Loop the video. |
 | controls | 	Show the default video controls (play, pause, etc.). |
 
+| JavaScript property | Description |
+| ------------------- | ----------- |
+| currentTime | Get or set playback position in seconds. |
+| volume |	Get or set current volume level for the video. |
+| muted |	Get or set audio muting. |
+| playbackRate |	Get or set playback rate; 1 is normal speed forward. |
+| buffered |	Information about how much of the video has been buffered and is ready to play. |
+| currentSrc |	The address of the video being played. |
+| videoWidth |	Width of the video in pixels (which may be different from the video element width). |
+| videoHeight |	Height of the video in pixels (which may be different from the video element height). |
+
 ## Front End Networking
 
 * [Codelabs -> Fetch API](https://codelabs.developers.google.com/codelabs/pwa-fetch/index.html?index=..%2F..dev-pwa-training#0)
