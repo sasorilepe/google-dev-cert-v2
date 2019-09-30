@@ -1,0 +1,74 @@
+article > div{
+  counter-reset: item;
+  display: flex;
+}
+article > div .item::after{
+  counter-increment: item;
+  content: "item " counter(item);
+}
+
+/* First container */
+article > div:nth-of-type(1) .item:nth-of-type(1){
+  order: 4;
+}
+article > div:nth-of-type(1) .item:nth-of-type(2){
+  order: -1;
+}
+article > div:nth-of-type(1) .item:nth-of-type(3){
+  order: 1;
+}
+article > div:nth-of-type(1) .item:nth-of-type(4){
+  order: 3;
+}
+
+article > div:nth-of-type(n+2) .item{
+  width: initial;
+}
+
+/* Second container */
+article > div:nth-of-type(2) .item:nth-of-type(1){
+  flex-grow: 1;
+}
+article > div:nth-of-type(2) .item:nth-of-type(2){
+  flex-grow: 2;
+}
+article > div:nth-of-type(2) .item:nth-of-type(3){
+  flex-grow: 3;
+}
+article > div:nth-of-type(2) .item:nth-of-type(4){
+  flex-grow: 4;
+}
+
+/* Third container */
+article > div:nth-of-type(3) .item:nth-of-type(1){
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+article > div:nth-of-type(3) .item:nth-of-type(2){
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+/* Fourth container */
+article > div:nth-of-type(4) .item:nth-of-type(1){
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+article > div:nth-of-type(4) .item:nth-of-type(2){
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+/* Fifth container */
+article > div:nth-of-type(5) .item:nth-of-type(1){
+  flex-basis: 50px;
+}
+article > div:nth-of-type(5) .item:nth-of-type(2){
+  flex-basis: 100px;
+}
+article > div:nth-of-type(5) .item:nth-of-type(3){
+  flex-basis: 150px;
+}
+article > div:nth-of-type(5) .item:nth-of-type(4){
+  flex-basis: auto;
+}

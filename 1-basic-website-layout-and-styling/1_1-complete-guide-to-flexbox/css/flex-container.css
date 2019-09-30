@@ -1,0 +1,99 @@
+article .item::after{
+  content: "ok";
+}
+/* Sólo cuenta los hijos de un tipo específico, si quieres contar todos los hijos usa :nth-child() */
+article > div:nth-of-type(2){
+  display: flex;
+}
+article > div:nth-of-type(3){
+  display: inline-flex;
+  margin-bottom: 1.17em;
+}
+article > div:nth-of-type(n+4){
+  counter-reset: item;
+  display: flex;
+}
+article > div:nth-of-type(n+4) .item::after{
+  counter-increment: item;
+  content: "item " counter(item);
+}
+article > div:nth-of-type(4){
+  flex-direction: row;
+}
+article > div:nth-of-type(5){
+  flex-direction: row-reverse;
+}
+article > div:nth-of-type(6){
+  flex-direction: column;
+}
+article > div:nth-of-type(7){
+  flex-direction: column-reverse;
+  margin-bottom: 1.17em;
+}
+article > div:nth-of-type(8){
+  flex-wrap: nowrap;
+}
+article > div:nth-of-type(9){
+  flex-wrap: wrap;
+}
+article > div:nth-of-type(n+9) .item{
+  width: 20%;
+}
+article > div:nth-of-type(10){
+  flex-wrap: wrap-reverse;
+  margin-bottom: 1.17em;
+}
+article > div:nth-of-type(11){
+  height: 100px;
+  flex-flow: column wrap-reverse;
+}
+
+article > div:nth-of-type(12){
+  justify-content: flex-start;
+}
+
+article > div:nth-of-type(13){
+  justify-content: flex-end;
+}
+
+article > div:nth-of-type(14){
+  justify-content: center;
+}
+
+article > div:nth-of-type(15){
+  justify-content: space-between;
+}
+
+article > div:nth-of-type(16){
+  justify-content: space-around;
+}
+
+article > div:nth-of-type(17){
+  justify-content: space-evenly;
+}
+
+article > div:nth-of-type(n+18){
+  background-color: lightskyblue;
+  height: 100px;
+}
+
+article > div:nth-of-type(18),
+article > div:nth-of-type(23){
+  align-items: flex-start;
+}
+
+article > div:nth-of-type(19){
+  align-items: flex-end;
+}
+
+article > div:nth-of-type(20){
+  align-items: center;
+}
+
+article > div:nth-of-type(21){
+  align-items: stretch;
+}
+
+article > div:nth-of-type(22){
+  align-items: baseline;
+}

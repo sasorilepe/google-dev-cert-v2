@@ -1,0 +1,25 @@
+@media (min-width: 575px) {
+  article {
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+h1 {
+  text-align: center;
+  color: red;
+}
+h1 p{
+  margin: 0;
+}
+.title{
+  font-weight: bold;
+  color: purple;
+}
+article .item{
+  width: 100%;
+  background-color: orange;
+  border: 2px solid purple;
+  color: purple;
+  text-align: center;
+}

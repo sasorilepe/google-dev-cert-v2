@@ -13,13 +13,13 @@
 
 * [Codelabs -> Responsive design](https://codelabs.developers.google.com/codelabs/pwa-responsive-design/index.html?index=..%2F..dev-pwa-training#0) [:point_down:](#responsive-design)
 * [Codelabs -> Responsive images](https://codelabs.developers.google.com/codelabs/pwa-responsive-images/index.html?index=..%2F..dev-pwa-training#0) [:point_down:](#responsive-images)
-* [Web Fundamentals -> Video](https://developers.google.com/web/fundamentals/media/video)
+* [Web Fundamentals -> Video](https://developers.google.com/web/fundamentals/media/video) [:point_down:](#video)
 * [Web Fundamentals -> Responsive Web Design Basics](https://developers.google.com/web/fundamentals/design-and-ux/responsive/)
 * [Web Fundamentals -> Add Touch to Your Site](https://developers.google.com/web/fundamentals/design-and-ux/input/touch/)
 
 ### Responsive Design
 
-[:point_up:](#basic-website-layout-and-styling)
+[:point_up:](#basic-website-layout-and-styling) [:house:](/1-basic-website-layout-and-styling/1_1-responsive-design-lab/app/index.html)
 
 * [Setting the Visual Viewport](#setting-the-visual-viewport)
 * [Using Media Queries](#using-media-queries)
@@ -227,7 +227,17 @@ img#sfo {
 </picture>
 ```
 
-### Video [:point_up:](#basic-website-layout-and-styling)
+### Video
+
+[:point_up:](#basic-website-layout-and-styling)
+
+* [Adding a video](#adding-a-video)
+* [Providing alternatives for legacy platforms](#providing-alternatives-for-legacy-platforms)
+* [Sizing videos correctly](#sizing-videos-correctly)
+* [Customizing the video player](#customizing-the-video-player)
+* [Inline or fullscreen display](#inline-or-fullscreen-display)
+* [Accessibility matters](#accessibility-matters)
+* [Quick Reference](#quick-reference)
 
 #### Adding a video
 
@@ -274,6 +284,115 @@ We can use `canPlayType()` to find out which video formats are supported. The me
 | maybe | The container and codec(s) might be supported, but the browser will need to download some video to check. |
 | probably | The format appears to be supported. |
 
+In JavaScript, we can use the video's `currentSrc` property to return the source used.
+
+#### Sizing videos correctly
+
+* Don't serve videos with a larger frame size or higher quality than the platform can handle.
+* Don't make your videos any longer than they need be.
+
+To check the encoded size of a video, use the video element `videoWidth` and `videoHeight` properties. `width` and `height` return the dimensions of the video element, which may have been sized using CSS or inline width and height attributes.
+
+**Don't force element sizing that results in an aspect ratio different from the original video. Squashed or stretched looks bad.**
+
+For media content in iframes (such as YouTube videos), try a responsive approach.
+
+```css
+.video-container {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-container iframe,
+.video-container object,
+.video-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+```
+
+```html
+<div class="video-container">
+  <iframe src="//www.youtube.com/embed/l-BA9Ee2XuM"
+          frameborder="0" width="560" height="315">
+  </iframe>
+</div>
+```
+
+#### Customizing the video player
+
+Setting the video `width: 100%` or `max-width: 100%` with CSS can resolve many device orientation layout problems.
+
+#### Inline or fullscreen display
+
+To full screen an element, like a video:
+
+```javascript
+  elem.requestFullScreen();
+```
+
+To full screen the entire document:
+
+```javascript
+  document.body.requestFullScreen();
+```
+
+You can also listen for fullscreen state changes:
+
+```javascript
+  video.addEventListener("fullscreenchange", handler);
+```
+
+Or, check to see if the element is currently in fullscreen mode:
+
+```javascript
+  console.log("In full screen mode: ", video.displayingFullscreen);
+```
+
+You can also use the CSS `:fullscreen` pseudo-class to change the way elements are displayed in fullscreen mode.
+
+#### Accessibility matters
+
+It's very easy to add captions to your video–simply add a track element as a child of the video element:
+
+```html
+<video controls>
+<source src="https://storage.googleapis.com/webfundamentals-assets/videos/chrome.webm" type="video/webm" />
+<source src="https://storage.googleapis.com/webfundamentals-assets/videos/chrome.mp4" type="video/mp4" />
+<track src="chrome-subtitles-en.vtt" label="English captions"
+       kind="captions" srclang="en" default>
+<p>This browser does not support the video element.</p>
+</video>
+```
+
+A track file consists of timed "cues" in WebVTT format:
+
+```
+WEBVTT
+
+00:00.000 --> 00:04.000
+Man sitting on a tree branch, using a laptop.
+
+00:05.000 --> 00:08.000
+The branch breaks, and he starts to fall.
+```
+
+#### Quick Reference
+
+| Video attribute | Description |
+| --------------- | ----------- |
+| src | Address (URL) of the video. |
+| poster | Address (URL) of an image file that the browser can show as soon as the video element is displayed without downloading video content. |
+| preload | Hints to the browser that preloading metadata (or some video) in advance of playback is worthwhile. Options are none, metadata, or auto (see Preload section for details). |
+| autoplay | Start download and playback as soon as possible |
+| loop | Loop the video. |
+| controls | 	Show the default video controls (play, pause, etc.). |
 
 ## Front End Networking
 
