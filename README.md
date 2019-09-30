@@ -17,7 +17,7 @@
 * [Web Fundamentals -> Responsive Web Design Basics](https://developers.google.com/web/fundamentals/design-and-ux/responsive/)
 * [Web Fundamentals -> Add Touch to Your Site](https://developers.google.com/web/fundamentals/design-and-ux/input/touch/)
 
-### Responsive Design
+### Responsive Design [:point_up:](#basic-website-layout-and-styling)
 
 * [Setting the Visual Viewport](#setting-the-visual-viewport)
 * [Using Media Queries](#using-media-queries)
@@ -108,7 +108,7 @@
 <script src="modernizr-custom.js"></script>
 ```
 
-### Responsive Images
+### Responsive Images [:point_up:](#basic-website-layout-and-styling)
 
 * [Setting the Relative Width](#setting-the-relative-width)
 * [Using the srcset attribute](#using-the-srcset-attribute)
@@ -222,6 +222,54 @@ img#sfo {
   <img src="images/horses_small.jpg" alt="Horses in Hawaii">
 </picture>
 ```
+
+### Video [:point_up:](#basic-website-layout-and-styling)
+
+#### Adding a video
+
+Basic `video` element with `src` and `type` attributes and a fallback paragraph.
+
+```html
+  <video src="chrome.webm" type="video/webm">
+    <!-- This is showed when the video is not supported, otherwise it is not shown -->
+    <p>Your browser does not support the video element.</p>
+  </video>
+```
+
+In this case, there are multiple formats as a fallback in the `video` element in case the user's browser doesn't support one of them. Also, we are specifying basic controls to our video.
+
+```html
+<video controls>
+  <source src="https://storage.googleapis.com/webfundamentals-assets/videos/chrome.webm" type="video/webm">
+  <source src="https://storage.googleapis.com/webfundamentals-assets/videos/chrome.mp4" type="video/mp4">
+  <p>This browser does not support the video element.</p>
+</video>
+```
+
+We can use the Media Fragments API to add start and end times to the video element. To add a media fragment, you simply add `#t=[start_time][,end_time]` to the media URL.
+
+```html
+  <source src="video/chrome.webm#t=5,10" type="video/webm">
+```
+
+We can add a `poster` attribute to the `video` element so that our users have an idea of the content as soon as the element loads, without needing to download video or start playback.
+
+```html
+  <video poster="poster.jpg" ...>
+    ...
+  </video>
+```
+
+#### Providing alternatives for legacy platforms
+
+We can use `canPlayType()` to find out which video formats are supported. The method takes a string argument consisting of a `mime-type` and optional codecs (e.g. `video/webm; codecs="vp8, vorbis"`) and returns one of the following values:
+
+| Return value | Description |
+| ------------ | ----------- |
+| (empty string) | The container and/or codec isn't supported. |
+| maybe | The container and codec(s) might be supported, but the browser will need to download some video to check. |
+| probably | The format appears to be supported. |
+
 
 ## Front End Networking
 
