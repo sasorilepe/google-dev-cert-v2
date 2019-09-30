@@ -17,7 +17,9 @@
 * [Web Fundamentals -> Responsive Web Design Basics](https://developers.google.com/web/fundamentals/design-and-ux/responsive/)
 * [Web Fundamentals -> Add Touch to Your Site](https://developers.google.com/web/fundamentals/design-and-ux/input/touch/)
 
-### Responsive Design [:point_up:](#basic-website-layout-and-styling)
+### Responsive Design
+
+[:point_up:](#basic-website-layout-and-styling)
 
 * [Setting the Visual Viewport](#setting-the-visual-viewport)
 * [Using Media Queries](#using-media-queries)
@@ -108,7 +110,9 @@
 <script src="modernizr-custom.js"></script>
 ```
 
-### Responsive Images [:point_up:](#basic-website-layout-and-styling)
+### Responsive Images
+
+[:point_up:](#basic-website-layout-and-styling)
 
 * [Setting the Relative Width](#setting-the-relative-width)
 * [Using the srcset attribute](#using-the-srcset-attribute)
