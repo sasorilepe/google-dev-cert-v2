@@ -1,0 +1,28 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: black;
+  color: white;
+}
+.fixed{
+  width: 344px;
+}
+.table{
+  width: 100%;
+}
+.table .row{
+  display: flex;
+}
+.table .row div{
+  border: 1px solid white;
+}
+.table .row .item{
+  width: 250px;
+  font-weight: bold;
+}
+.table .row .description{
+  width: 100%;
+}
+h4{
+  display: none;
+  color: lightcoral;
+}

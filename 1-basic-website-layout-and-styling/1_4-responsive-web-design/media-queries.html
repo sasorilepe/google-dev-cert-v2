@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" media="(max-width: 640px)" href="css/max-640px.css">
+  <link rel="stylesheet" media="(min-width: 640px)" href="css/min-640px.css">
+  <link rel="stylesheet" media="(orientation: portrait)" href="css/portrait.css">
+  <link rel="stylesheet" media="(orientation: landscape)" href="css/landscape.css">
+  <style>
+    @media (min-width: 500px) and (max-width: 600px) {
+      .between-500-600{
+        display: block;
+        color: aquamarine;
+      }
+    }
+    @media (any-pointer: fine) {
+      .fine-pointer{
+        display: block;
+        color: lightgrey;
+      }
+    }
+    @media (any-pointer: coarse){
+      .coarse-pointer{
+        display: block;
+        color: lightgrey;
+      }
+    }
+    @media (min-width: 575px){
+      .container{
+        width: 550px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
+  <title>Media Queries</title>
+</head>
+<body>
+  <div class="container">
+
+    <h1>Media Queries</h1>
+    <hr>
+    <h4 class="max-640">It's between 0px and 640px</h4>
+    <h4 class="between-500-600">It's between 500px and 600px</h4>
+    <h4 class="min-640">It's 640px or wider</h4>
+    <h4 class="landscape">It's in landscape mode (width is greater than the height)</h4>
+    <h4 class="portrait">It's in portrait mode (height is greater than the width)</h4>
+    <h4 class="fine-pointer">You have a fine pointer</h4>
+    <h4 class="coarse-pointer"> You have a coarse pointer</h4>
+    <hr>
+    <h2>Most used media queries</h2>
+    <div class="table">
+      <div class="row">
+        <div class="item">min-width</div>
+        <div class="description">Rules applied for any browser width greater than the value defined in the query.</div>
+      </div>
+      <div class="row">
+        <div class="item">max-width</div>
+        <div class="description">Rules applied for any browser width less than the value defined in the query.</div>
+      </div>
+      <div class="row">
+        <div class="item">min-height</div>
+        <div class="description">Rules applied for any browser height greater than the value defined in the query.</div>
+      </div>
+      <div class="row">
+        <div class="item">max-height</div>
+        <div class="description">Rules applied for any browser height less than the value defined in the query.</div>
+      </div>
+      <div class="row">
+        <div class="item">orientation=portrait</div>
+        <div class="description">Rules applied for any browser where the height is greater than or equal to the width.</div>
+      </div>
+      <div class="row">
+        <div class="item">orientation=landscape</div>
+        <div class="description">Rules for any browser where the width is greater than the height.</div>
+      </div>
+    </div>
+    <p>
+      Setting width: 100% on a top level div, ensures that it spans the width of the viewport and is never too big or too small for the viewport
+    </p>
+  </div>
+</body>
+</html>

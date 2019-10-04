@@ -385,6 +385,8 @@ The branch breaks, and he starts to fall.
 
 #### Quick Reference
 
+##### HTML attributes
+
 | Video attribute | Description |
 | --------------- | ----------- |
 | src | Address (URL) of the video. |
@@ -393,6 +395,8 @@ The branch breaks, and he starts to fall.
 | autoplay | Start download and playback as soon as possible |
 | loop | Loop the video. |
 | controls | 	Show the default video controls (play, pause, etc.). |
+
+##### JavaScript Properties
 
 | JavaScript property | Description |
 | ------------------- | ----------- |
@@ -418,6 +422,77 @@ The branch breaks, and he starts to fall.
 * [Web Fundamentals -> Aria Labels and Relationships](https://developers.google.com/web/fundamentals/accessibility/semantics-aria/aria-labels-and-relationships)
 * [Web Fundamentals -> Accessible Styles](https://developers.google.com/web/fundamentals/accessibility/accessible-styles)
 * [Web Fundamentals -> Hiding and Updating Content](https://developers.google.com/web/fundamentals/accessibility/semantics-aria/hiding-and-updating-content)
+
+**Accessible Rich Internet Applications (ARIA)**
+
+Doing so would allow an author to express the following: “If someone is interacting via the keyboard, they need a visual indicator of what has focus, but if they are using a touch based device they don’t”:
+
+```css
+@media (modality: keyboard) {
+ :focus {
+    outline: -webkit-focus-ring-color auto 5px; /* or default UA style of your choosing */
+  }
+}
+
+@media not (modality: keyboard) {
+ :focus {
+    outline: none;
+  }
+}
+```
+
+We’ve created a rough prollyfill for this concept. Because we can’t (yet) polyfill media queries, it uses the more basic mechanism on setting an attribute on `<body>`, so the above rule would look more like
+
+```css
+body([modality=keyboard]) :focus {
+    outline: -webkit-focus-ring-color auto 5px; /* or default UA style of your choosing */
+}
+
+body:not([modality=keyboard]) :focus {
+    outline: none;
+}
+```
+
+The prollyfill also incorporates a mechanism for new or custom elements to indicate that they are keyboard-oriented (like a textbox):
+
+```html
+<my-element tabindex=0 supports-modality=keyboard></my-element>
+```
+
+A useful technique to employ here is to remove the class altogether, and just use the ARIA attributes to style the element.
+
+```CSS
+.toggle[aria-pressed="true"] { ... }
+```
+
+Keyboard Accessible: Make all functionality available from a keyboard
+
+### 2.1 Success Criteria	WebAIM's Recommendations
+
+* **2.1.1 Keyboard (Level A):**	 All page functionality is available using the keyboard, unless the functionality cannot be accomplished in any known way using a keyboard (e.g., free hand drawing). Page-specified shortcut keys and accesskeys (accesskey should typically be avoided) do not conflict with existing browser and screen reader shortcuts.
+* **2.1.2 No Keyboard Trap (Level A):**	Keyboard focus is never locked or trapped at one particular page element. The user can navigate to and from all navigable page elements using only a keyboard.
+* **2.1.3 Keyboard (No Exception) (Level AAA):**	All page functionality is available using the keyboard.
+* **2.1.4 Character Key Shortcuts (WCAG 2.1 Level A):** If a keyboard shortcut uses printable character keys, then the user must be able to disable the key command, change the defined key to a non-printable key (Ctrl, Alt, etc.), or only activate the shortcut when an associated interface component or button is focused.
+
+A minimum recommended touch target size is around 48 device independent pixels on a site with a properly set mobile viewport. For example, while an icon may only have a width and height of 24px, you can use additional padding to bring the tap target size up to 48px. The 48x48 pixel area corresponds to around 9mm, which is about the size of a person's finger pad area.
+
+Touch targets should also be spaced about 8 pixels apart, both horizontally and vertically, so that a user's finger pressing on one tap target does not inadvertently touch another tap target.
+
+The WebAIM guidelines recommend an AA (minimum) contrast ratio of 4.5:1 for all text. An exception is made for very large text (120-150% larger than the default body text), for which the ratio can go down to 3:1.
+
+First, anything that is explicitly hidden from the DOM will also not be included in the accessibility tree. So anything that has a CSS style of visibility: hidden or display: none or uses the HTML5 hidden attribute will also be hidden from assistive technology users.
+
+However, an element that is not visually rendered but not explicitly hidden is still included in the accessibility tree. One common technique is to include "screen reader only text" in an element that is absolute positioned offscreen.
+
+```css
+.sr-only {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+```
 
 ## Progressive Web Apps
 

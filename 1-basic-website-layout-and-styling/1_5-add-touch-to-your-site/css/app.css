@@ -1,0 +1,74 @@
+.title{
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 4px;
+  margin-top: 10px;
+}
+
+.btn {
+  background-color: #4285f4;
+  width: 5vw;
+  height: 2.5vw;
+  color: white;
+  font-weight: bold;
+  /* Webkit / Chrome Specific CSS to remove tap
+highlight color */
+  -webkit-tap-highlight-color: transparent;
+  /* Firefox Specific CSS to remove button
+differences and focus ring */
+  background-image: none;
+}
+.btn::after{
+  content: "Default";
+}
+
+.btn::-moz-focus-inner {
+  border: 0;
+}
+
+.btn:hover {
+  background-color: #296CDB;
+}
+.btn:hover::after{
+  content: "Hover";
+}
+
+.btn:focus {
+  background-color: #0F52C1;
+  /* The outline parameter suppresses the border
+  color / outline when focused */
+  outline: 0;
+}
+.btn:focus::after{
+  content: "Focus";
+}
+
+.btn:active {
+  background-color: #0039A8;
+}
+.btn:active::after{
+  content: "Active";
+}
+
+.link{
+  user-select: none;
+}
+.link:link { color: blue; }          /* Enlaces no visitados */
+.link:visited { color: purple; }     /* Enlaces visitados */
+.link:hover { background: yellow; }  /* El usuario esta sobre el enlace */
+.link:active { color: lime; }        /* Enlaces activos */
+
+.dummyCircle{
+  background-color: cyan;
+  border-radius: 100%;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  font-size: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.dummyCircle div{
+  text-align: center;
+}
