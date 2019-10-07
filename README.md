@@ -502,6 +502,8 @@ However, an element that is not visually rendered but not explicitly hidden is s
 * [Codelab -> Adding a Service Worker and Offline into your Web App](https://codelabs.developers.google.com/codelabs/offline/index.html?index=..%2F..%2Findex#0)
 * [Web Fundamentals -> The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell)
 
+Service workers can meaningfully speed up repeat visits to your web app.
+
 ## Performance Optimization and Caching
 
 * [Codelab -> IndexedDB API](https://codelabs.developers.google.com/codelabs/pwa-indexed-db/index.html?index=..%2F..dev-pwa-training#0)

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/app.css">
+    <title>Service Workers</title>
+  </head>
+  <body>
+    <h1>Service Workers</h1>
+    <hr>
+    <article class="container">
+      Service workers can meaningfully speed up repeat visits to your web app.
+    </article>
+    <script type="text/javascript">
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js', {
+        scope: '/below/'
+      })
+      .then(registration => {
+        console.log('SW registered with scope:', registration.scope);
+      })
+      .catch(err => {
+        console.error('Registration failed:', err);
+      });
+    });
+    </script>
+  </body>
+</html>
