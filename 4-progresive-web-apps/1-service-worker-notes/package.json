@@ -1,0 +1,14 @@
+{
+  "name": "1-service-worker-notes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alfredo Alvarado Lepe",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

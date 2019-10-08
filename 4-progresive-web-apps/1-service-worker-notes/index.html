@@ -12,19 +12,9 @@
     <hr>
     <article class="container">
       Service workers can meaningfully speed up repeat visits to your web app.
+      <hr>
+      <a href="example/example.html">Example</a>
     </article>
-    <script type="text/javascript">
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js', {
-        scope: '/below/'
-      })
-      .then(registration => {
-        console.log('SW registered with scope:', registration.scope);
-      })
-      .catch(err => {
-        console.error('Registration failed:', err);
-      });
-    });
-    </script>
+    <script src="js/app.js"></script>
   </body>
 </html>
