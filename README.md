@@ -504,6 +504,10 @@ However, an element that is not visually rendered but not explicitly hidden is s
 
 Service workers can meaningfully speed up repeat visits to your web app.
 
+An application shell (or app shell) architecture is one way to build a Progressive Web App that reliably and instantly loads on your users' screens, similar to what you see in native applications.
+
+The app "shell" is the minimal HTML, CSS and JavaScript required to power the user interface and when cached offline can ensure instant, reliably good performance to users on repeat visits. This means the application shell is not loaded from the network every time the user visits. Only the necessary content is needed from the network.
+
 ## Performance Optimization and Caching
 
 * [Codelab -> IndexedDB API](https://codelabs.developers.google.com/codelabs/pwa-indexed-db/index.html?index=..%2F..dev-pwa-training#0)
@@ -512,6 +516,11 @@ Service workers can meaningfully speed up repeat visits to your web app.
 * [Web Fundamentals -> Resource Prioritization](https://developers.google.com/web/fundamentals/performance/resource-prioritization)
 * [Web Tools -> Get Started with Analyzing Network Performance in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/network-performance/)
 * [Web Tools -> Critical Request Chains](https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains)
+
+### Web workers
+
+* They're outside the web browser then they can't touch the DOM, the window or another elements inside Web browser.
+* Web BROWSER AND WEB WORKERS CAN COMMUNICATE EACH OTHER.
 
 ## Testing and Debugging
 

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/app.css">
+  <title>Flexbox</title>
+</head>
+<body>
+  <h1>
+    Video and audio content
+  </h1>
+  <article>
+
+    <p>
+      All the videos include a fallback content with the message:
+      <b>"Your browser doesn't support HTML5 video"</b>
+    </p>
+
+    <hr>
+    <h2 class="title">
+      Video without controls
+    </h2>
+    <hr>
+
+    <video id="videoWithoutControls" src="video/rabbit320.webm">
+      <!-- Fallback content  -->
+      <p>Your browser doesn't support HTML5 video</p>
+    </video>
+
+
+    <hr>
+    <h2 class="title">
+      Video with default controls
+    </h2>
+    <hr>
+
+    <video src="video/rabbit320.webm" controls>
+      <!-- Fallback content  -->
+      <p>Your browser doesn't support HTML5 video</p>
+    </video>
+
+    <hr>
+    <h2 class="title">
+      Video with two sources to increase compatibility
+    </h2>
+    <hr>
+
+    <p>A WebM container is supported mainly in Firefox and Chrome.</p>
+    <p>An MP4 container is supported mainly in Internet Explorer and Safari.</p>
+
+    <video controls>
+      <source src="video/rabbit320.mp4" type="video/mp4">
+      <source src="video/rabbit320.webm" type="video/webm">
+      <!-- Fallback content  -->
+      <p>Your browser doesn't support HTML5 video</p>
+    </video>
+
+  </article>
+
+  <script type="text/javascript">
+    window.addEventListener('load', () => {
+      const video = document.getElementById('videoWithoutControls');
+      console.log( video.canPlayType('video/webm') );
+    });
+  </script>
+</body>
