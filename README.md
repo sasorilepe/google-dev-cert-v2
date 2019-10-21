@@ -1,15 +1,15 @@
 # Google Mobile Web Specialist Certification Guide
 
-1. [Basic Website Layout and Styling](#basic-website-layout-and-styling)
-2. [Front End Networking](#front-end-networking)
-3. [Accessibility](#accessibility)
-4. [Progressive Web Apps](#progressive-web-apps)
-5. [Performance Optimization and Caching](#performance-optimization-and-caching)
-6. [Testing and Debugging](#testing-and-debugging)
-7. [ES2015 Concepts and Syntax](#es2015-concepts-and-syntax)
-8. [Mobile Web Forms](#mobile-web-forms)
+1. [Basic Website Layout and Styling](#1-basic-website-layout-and-styling)
+2. [Front End Networking](#2-front-end-networking)
+3. [Accessibility](#3-accessibility)
+4. [Progressive Web Apps](#4-progressive-web-apps)
+5. [Performance Optimization and Caching](#5-performance-optimization-and-caching)
+6. [Testing and Debugging](#6-testing-and-debugging)
+7. [ES2015 Concepts and Syntax](#7-es2015-concepts-and-syntax)
+8. [Mobile Web Forms](#8-mobile-web-forms)
 
-## 1. Basic Website Layout and Styling
+## 1 Basic Website Layout and Styling
 
 * [Codelabs -> Responsive design](https://codelabs.developers.google.com/codelabs/pwa-responsive-design/index.html?index=..%2F..dev-pwa-training#0)
 * [Codelabs -> Responsive images](https://codelabs.developers.google.com/codelabs/pwa-responsive-images/index.html?index=..%2F..dev-pwa-training#0)
@@ -139,13 +139,91 @@ console.log("In full screen mode: ", video.displayingFullscreen);
 
 ### Responsive Web Design Basics
 
-OK
+Style sheets per size (good practice)
+```html
+<link rel="stylesheet" href="weather.css">
+<link rel="stylesheet" media="(max-width:600px)" href="weather-2-small.css">
+<link rel="stylesheet" media="(min-width:601px)" href="weather-2-large.css">
+```
 
-## 2. Front End Networking
+An ideal column should contain 70 to 80 characters per line (about 8 to 10 words in English).
+```css
+@media (min-width: 575px) {
+  article {
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+```
+
+### Add Touch to Your Site
+
+DOM elements can inherit any of the following states: default, focus, hover and active.
+```css
+.btn {}
+.btn:hover {}
+.btn:focus {}
+.btn:active {}
+```
+
+Supressing default browser styles
+```css
+/* The outline parameter suppresses the border color / outline when focused */
+.btn:focus{
+  outline: 0;
+}
+/* Webkit / Chrome Specific CSS to remove tap highlight color */
+.btn {
+  -webkit-tap-highlight-color: transparent;
+}
+/* Firefox Specific CSS to remove button differences and focus ring */
+.btn {
+  background-image: none;
+}
+.btn::-moz-focus-inner {
+  border: 0;
+}
+```
+```html
+<!-- For Internet Explorer -->
+<meta name="msapplication-tap-highlight" content="no">
+```
+
+Event Listeners
+```javascript
+// Choosing item
+const swipeFrontElement = document.getElementById("dummyCircle");
+// Adding functions
+const handleGestureStart = () => console.log('start');
+const handleGestureMove = () => console.log('move');
+const handleGestureEnd = () => console.log('end');
+if (window.PointerEvent) {
+  // Add Pointer Event Listener
+  swipeFrontElement.addEventListener('pointerdown', handleGestureStart);
+  swipeFrontElement.addEventListener('pointermove', handleGestureMove);
+  swipeFrontElement.addEventListener('pointerup', handleGestureEnd);
+  swipeFrontElement.addEventListener('pointercancel', handleGestureEnd);
+} else {
+  // Add Touch Listener
+  swipeFrontElement.addEventListener('touchstart', handleGestureStart);
+  swipeFrontElement.addEventListener('touchmove', handleGestureMove);
+  swipeFrontElement.addEventListener('touchend', handleGestureEnd);
+  swipeFrontElement.addEventListener('touchcancel', handleGestureEnd);
+  // Add Mouse Listener
+  swipeFrontElement.addEventListener('mousedown', handleGestureStart);
+}
+```
+
+## 2 Front End Networking
 
 * [Codelabs -> Fetch API](https://codelabs.developers.google.com/codelabs/pwa-fetch/index.html?index=..%2F..dev-pwa-training#0)
 
-## 3. Accessibility
+### Fetch API
+
+
+
+## 3 Accessibility
 
 * [Web Fundamentals -> Introduction to Focus](https://developers.google.com/web/fundamentals/accessibility/focus/)
 * [Web Fundamentals -> Introduction to Semantics](https://developers.google.com/web/fundamentals/accessibility/semantics-builtin/)
@@ -155,7 +233,7 @@ OK
 * [Web Fundamentals -> Accessible Styles](https://developers.google.com/web/fundamentals/accessibility/accessible-styles)
 * [Web Fundamentals -> Hiding and Updating Content](https://developers.google.com/web/fundamentals/accessibility/semantics-aria/hiding-and-updating-content)
 
-## 4. Progressive Web Apps
+## 4 Progressive Web Apps
 
 * [Codelab -> Scripting the service worker](https://codelabs.developers.google.com/codelabs/pwa-scripting-the-service-worker/index.html?index=..%2F..dev-pwa-training#0)
 * [Codelab -> Caching files with the service worker](https://codelabs.developers.google.com/codelabs/pwa-caching-service-worker/index.html?index=..%2F..dev-pwa-training#0)
@@ -163,7 +241,7 @@ OK
 * [Codelab -> Adding a Service Worker and Offline into your Web App](https://codelabs.developers.google.com/codelabs/offline/index.html?index=..%2F..%2Findex#0)
 * [Web Fundamentals -> The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell)
 
-## 5. Performance Optimization and Caching
+## 5 Performance Optimization and Caching
 
 * [Codelab -> IndexedDB API](https://codelabs.developers.google.com/codelabs/pwa-indexed-db/index.html?index=..%2F..dev-pwa-training#0)
 * [Supercharged Youtube series -> Web Workers](https://www.youtube.com/watch?v=X57mh8tKkgE)
@@ -172,19 +250,19 @@ OK
 * [Web Tools -> Get Started with Analyzing Network Performance in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/network-performance/)
 * [Web Tools -> Critical Request Chains](https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains)
 
-## 6. Testing and Debugging
+## 6 Testing and Debugging
 
 * [Web Fundamentals -> Debugging Service Workers](https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/)
 * [Web Tools -> Chrome Dev Tools](https://developers.google.com/web/tools/chrome-devtools/)
 * [Web Tools -> Get Started with Debugging JavaScript in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/javascript/)
 * [Web Tools -> Diagnose and Log to Console](https://developers.google.com/web/tools/chrome-devtools/console/console-write)
 
-## 7. ES2015 Concepts and Syntax
+## 7 ES2015 Concepts and Syntax
 
 * [Codelabs -> Promises](https://codelabs.developers.google.com/codelabs/pwa-promises/index.html?index=..%2F..dev-pwa-training#0)
 * [Codelabs -> Build your first ES2015/ES6 application](https://codelabs.developers.google.com/codelabs/chrome-es2015/)
 * [Web Fundamentals -> JavaScript Promises: an Introduction](https://developers.google.com/web/fundamentals/getting-started/primers/promises)
 
-## 8. Mobile Web Forms
+## 8 Mobile Web Forms
 
 * [Web Fundamentals -> Create Amazing Forms](https://developers.google.com/training/certification/mobile-web-specialist/study-guide/es2015)
