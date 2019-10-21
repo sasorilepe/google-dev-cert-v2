@@ -13,9 +13,133 @@
 
 * [Codelabs -> Responsive design](https://codelabs.developers.google.com/codelabs/pwa-responsive-design/index.html?index=..%2F..dev-pwa-training#0)
 * [Codelabs -> Responsive images](https://codelabs.developers.google.com/codelabs/pwa-responsive-images/index.html?index=..%2F..dev-pwa-training#0)
-* [Web Fundamentals -> Video](https://developers.google.com/web/fundamentals/media/video) [:point_down:](#video)
+* [Web Fundamentals -> Video](https://developers.google.com/web/fundamentals/media/video)
 * [Web Fundamentals -> Responsive Web Design Basics](https://developers.google.com/web/fundamentals/design-and-ux/responsive/)
 * [Web Fundamentals -> Add Touch to Your Site](https://developers.google.com/web/fundamentals/design-and-ux/input/touch/)
+
+### Responsive design
+
+Visual viewport
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```
+
+Media queries with css
+```css
+@media screen and (min-width: 800px) and (max-width: 1200px) {}
+@media screen, print and (orientation: landscape) {}
+@media only screen and (orientation: portrait) {}
+```
+
+Media query with html
+```html
+<link rel="stylesheet" media="screen and (max-width: 799px)" />
+```
+
+Flexbox
+```css
+.container {
+  display: -webkit-box;  /* OLD - iOS 6-, Safari 3.1-6 */
+  display: -ms-flexbox;  /* TWEENER - IE 10 */
+  display: flex;         /* NEW, Spec - Firefox, Chrome, Opera */
+  flex-direction: row;   /* horizontal, vertical */
+  flex-wrap: nowrap;     /* Una o más líneas */
+  /* flex-flow: flex-direction flex-wrap */
+  justify-content: flex-start; /* Alignment along the main axis (horizontal) */
+  align-items: stretch;  /* Alignment along the cross axis (vertical) */
+  align-content: stretch; /* Alignment along the cross axis, multilínea */
+}
+.container .item {
+  order: 0;
+  flex-grow: 0; /* Fill the space */
+  flex-shrink: 1;
+  flex-basis: auto; /* default size */
+  /* flex: flex-grow flex-shrink flex-basis -> 2 & 3 optionals */
+  align-self: auto; /*  Alignment along the cross axis (vertical) */
+}
+```
+
+### Responsive images
+
+Avoiding overflow the screen
+```css
+img {
+  max-width: 100%;
+}
+```
+
+Images with srcset, alt and sizes with media query
+```html
+<!--
+  We use the sizes attribute to tell the browser the display size of the image before it is fetched.
+  The media query tests the viewport width of the screen, and applies the CSS if the viewport is less than 700px wide.
+  <img srcset="path1 max-width1, path2 max-width2, ...">
+-->
+<img src="images/sfo-500_small.jpg" srcset="images/sfo-1600_large.jpg 1600w, images/sfo-1000_large.jpg 1000w, images/sfo-800_medium.jpg 800w, images/sfo-500_small.jpg 500w" sizes="(max-width: 700px) 90vw, 50vw" alt="View from aircraft window near San Francisco airport">
+```
+
+Using picture and source elements
+```html
+<!--
+  We can use the picture element and the source element, in combination with media queries, to change the image source as the window is resized.
+-->
+<figure>
+  <picture>
+      <source media="(min-width: 750px)"
+              srcset="images/horses-1600_large_2x.jpg 2x,
+                      images/horses-800_large_1x.jpg" />
+      <source media="(min-width: 500px)"
+              srcset="images/horses_medium.jpg" />
+      <img src="images/horses_small.jpg" alt="Horses in Hawaii">
+  </picture>
+  <figcaption>Horses in Hawaii</figcaption>
+</figure>
+```
+
+### Video
+
+Complete video tag
+```html
+<video poster="poster.jpg" controls>
+  <source src="chrome.webm" type="video/webm">
+  <source src="chrome.mp4" type="video/mp4">
+  <track src="chrome-subtitles-en.vtt" label="English captions" kind="captions" srclang="en" default>
+  <p>This browser does not support the video element.</p>
+</video>
+```
+
+Play the video between seconds 5 through 10
+```html
+<!-- #t=start_time,end_time -->
+<source src="video/chrome.webm#t=5,10" type="video/webm">
+```
+
+YouTube video
+```html
+<div class="video-container">
+  <iframe src="//www.youtube.com/embed/l-BA9Ee2XuM" frameborder="0" width="560" height="315">
+  </iframe>
+</div>
+```
+
+To full screen an element, like a video
+```javascript
+elem.requestFullScreen();
+```
+
+Listen for fullscreen state changes
+```javascript
+video.addEventListener("fullscreenchange", handler);
+```
+
+Check if the element is currently in fullscreen mode
+```javascript
+console.log("In full screen mode: ", video.displayingFullscreen);
+```
+
+### Responsive Web Design Basics
+
+OK
 
 ## 2. Front End Networking
 
