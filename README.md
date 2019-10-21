@@ -221,7 +221,119 @@ if (window.PointerEvent) {
 
 ### Fetch API
 
+Fetch with custom validation and returning a JSON
+```javascript
+// Validation function
+function validateResponse(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  }
+  return response;
+}
+// Read response as a JSON
+function readResponseAsJSON(response) {
+  return response.json();
+}
+// Fetch
+function fetchJSON() {
+  fetch('examples/animals.json') // 1
+    .then(validateResponse) // 2
+    .then(readResponseAsJSON) // 3
+    .then(logResult) // 4
+    .catch(logError);
+}
+```
 
+Fetching an image
+```javascript
+// Reading as a blob
+function readResponseAsBlob(response) {
+  return response.blob();
+}
+// Showing in DOM
+function showImage(responseAsBlob) {
+  const container = document.getElementById('img-container');
+  const imgElem = document.createElement('img');
+  container.appendChild(imgElem);
+  const imgUrl = URL.createObjectURL(responseAsBlob);
+  imgElem.src = imgUrl;
+}
+// Fecthing image
+function fetchImage() {
+  fetch('examples/fetching.jpg')
+    .then(validateResponse)
+    .then(readResponseAsBlob)
+    .then(showImage)
+    .catch(logError);
+}
+```
+
+Using HEAD requests.
+```javascript
+// Response as a text
+function readResponseAsText(response) {
+  return response.text();
+}
+// Head request
+function headRequest() {
+  fetch('examples/words.txt', {
+    method: 'HEAD'
+  })
+  .then(validateResponse)
+  .then(readResponseAsText)
+  .then(logResult)
+  .catch(logError);
+}
+```
+
+Making POST requests
+```javascript
+function postRequest() {
+  fetch('http://localhost:5000/', {
+    method: 'POST',
+    body: 'name=david&message=hello'
+  })
+    .then(validateResponse)
+    .then(readResponseAsText)
+    .then(showText)
+    .catch(logError);
+}
+```
+
+Using FormData interface
+```javascript
+// Replace the body parameter with this variable
+const formData = new FormData(document.getElementById('msg-form'));
+```
+
+Starting a no-cors server
+```javascript
+function postRequest() {
+  const formData = new FormData(document.getElementById('msg-form'));
+  fetch('http://localhost:5001/', {
+    method: 'POST',
+    body: formData,
+    mode: 'no-cors'
+  })
+    .then(logResult)
+    .catch(logError);
+}
+```
+
+Enabling CORS in express
+```javascript
+const express = require('express');
+const app = express();
+// Setting headers
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'text/plain')
+  // enable CORS
+  res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'X-CUSTOM, Content-Type');
+  next();
+})
+```
 
 ## 3 Accessibility
 
