@@ -357,6 +357,113 @@ app.use((req, res, next) => {
 * [Codelab -> Adding a Service Worker and Offline into your Web App](https://codelabs.developers.google.com/codelabs/offline/index.html?index=..%2F..%2Findex#0)
 * [Web Fundamentals -> The App Shell Model](https://developers.google.com/web/fundamentals/architecture/app-shell)
 
+### Scripting the service worker
+
+Register the Service Worker
+```javascript
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('service-worker.js')
+    .then(registration => {
+      console.log('Service Worker is registered', registration);
+    })
+    .catch(err => {
+      console.error('Registration failed:', err);
+    });
+  });
+}
+```
+
+Event listeners: install & activate
+```javascript
+// The service worker emits an install event at the end of registration.
+self.addEventListener('install', event => {
+  console.log('Service worker installing...');
+  // This method allows a service worker to activate as soon as it finishes installation.
+  self.skipWaiting();
+});
+// The service worker emits an activate event when it takes control of the page.
+self.addEventListener('activate', event => {
+  console.log('Service worker activating...');
+});
+```
+
+Intercept network requests with fetch listener
+```javascript
+self.addEventListener('fetch', event => {
+  console.log('Fetching:', event.request.url);
+});
+```
+
+The default scope is the path to the service worker file, and extends to all lower directories.
+```javascript
+// Defining a custom scope
+navigator.serviceWorker.register('/service-worker.js', {
+  scope: '/custom_path/'
+});
+```
+
+### Caching files with the service worker
+
+The service worker's "install" event is a strategic time to cache static assets.
+```javascript
+const filesToCache = [
+  '/',
+  'style/main.css',
+  'images/still_life_medium.jpg',
+  'index.html',
+  'pages/offline.html',
+  'pages/404.html'
+];
+const staticCacheName = 'pages-cache-v1';
+// The cache is created here
+self.addEventListener('install', event => {
+  console.log('Attempting to install service worker and cache static assets');
+  event.waitUntil(
+    caches.open(staticCacheName)
+    .then(cache => {
+      return cache.addAll(filesToCache);
+    })
+  );
+});
+```
+
+Serving files from the cache
+```javascript
+// Intercepting requests
+self.addEventListener('fetch', event => {
+  console.log('Fetch event for ', event.request.url);
+  event.respondWith(
+    // Resolves to the Response associated with the first matching request in the Cache
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          console.log('Found ', event.request.url, ' in cache');
+          return response;
+        }
+        console.log('Network request for ', event.request.url);
+        return fetch(event.request)
+          .then(response => {
+            // Custom 404 page
+            if (response.status === 404) {
+              return caches.match('pages/404.html');
+            }
+            // Add files to the cache as they are requested
+            return caches.open(staticCacheName).then(cache => {
+              cache.put(event.request.url, response.clone());
+              return response;
+            });
+          });
+
+      }).catch(error => {
+        // Custom offline page
+        console.log('Error, ', error);
+        return caches.match('pages/offline.html');
+      })
+  );
+});
+```
+
 ## 5 Performance Optimization and Caching
 [:point_up:](#google-mobile-web-specialist-certification-guide)
 
