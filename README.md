@@ -464,6 +464,69 @@ self.addEventListener('fetch', event => {
 });
 ```
 
+### Offline quickstart
+
+Adding to Home screen using a manifest.json
+```json
+{
+  "name": "Space Missions",
+  "short_name": "Space Missions",
+  "lang": "en-US",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "theme_color": "#FF9800",
+  "background_color": "#FF9800",
+  "icons": [
+    {
+      "src": "images/touch/icon-128x128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "images/touch/icon-192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "images/touch/icon-256x256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "images/touch/icon-384x384.png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "images/touch/icon-512x512.png",
+      "sizes": "512x512"
+    }
+  ]
+}
+```
+
+It's necesary to add this to the head tag of index.html
+```html
+<link rel="manifest" href="manifest.json">
+
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="application-name" content="Space Missions">
+<meta name="apple-mobile-web-app-title" content="Space Missions">
+<meta name="theme-color" content="#FF9800">
+<meta name="msapplication-navbutton-color" content="#FF9800">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="msapplication-starturl" content="/index.html">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" sizes="128x128" href="/images/touch/icon-128x128.png">
+<link rel="apple-touch-icon" sizes="128x128" href="/images/touch/icon-128x128.png">
+<link rel="icon" sizes="192x192" href="icon-192x192.png">
+<link rel="apple-touch-icon" sizes="192x192" href="/images/touch/icon-192x192.png">
+<link rel="icon" sizes="256x256" href="/images/touch/icon-256x256.png">
+<link rel="apple-touch-icon" sizes="256x256" href="/images/touch/icon-256x256.png">
+<link rel="icon" sizes="384x384" href="/images/touch/icon-384x384.png">
+<link rel="apple-touch-icon" sizes="384x384" href="/images/touch/icon-384x384.png">
+<link rel="icon" sizes="512x512" href="/images/touch/icon-512x512.png">
+<link rel="apple-touch-icon" sizes="512x512" href="/images/touch/icon-512x512.png">
+```
+
 ## 5 Performance Optimization and Caching
 [:point_up:](#google-mobile-web-specialist-certification-guide)
 
@@ -473,6 +536,125 @@ self.addEventListener('fetch', event => {
 * [Web Fundamentals -> Resource Prioritization](https://developers.google.com/web/fundamentals/performance/resource-prioritization)
 * [Web Tools -> Get Started with Analyzing Network Performance in Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/network-performance/)
 * [Web Tools -> Critical Request Chains](https://developers.google.com/web/tools/lighthouse/audits/critical-request-chains)
+
+### IndexedDB API
+
+Check for support
+```javascript
+if (!('indexedDB' in window)) {
+  console.log('This browser doesn\'t support IndexedDB');
+  return;
+}
+```
+
+Creating Database
+```javascript
+var dbPromise = idb.open('couches-n-things', 1);
+```
+
+Creating an object store
+```javascript
+var dbPromise = idb.open('couches-n-things', 2, function(upgradeDb) {
+  switch (upgradeDb.oldVersion) {
+    case 0:
+      // a placeholder case so that the switch block will
+      // execute when the database is first created
+      // (oldVersion is 0)
+    case 1:
+      console.log('Creating the products object store');
+      // Here the object store is created
+      upgradeDb.createObjectStore('products', {keyPath: 'id'});
+  }
+});
+```
+
+Adding objects to the object store
+```javascript
+dbPromise.then(function(db) {
+  var tx = db.transaction('products', 'readwrite');
+  var store = tx.objectStore('products');
+  var items = [];
+  return Promise.all(items.map(function(item) {
+      console.log('Adding item: ', item);
+      // Adding item
+      return store.add(item);
+    })
+  ).catch(function(e) {
+    tx.abort();
+    console.log(e);
+  }).then(function() {
+    console.log('All items added successfully!');
+  });
+});
+```
+
+Creating indexes on the object store
+```javascript
+case 2:
+  console.log('Creating a name index');
+  var store = upgradeDb.transaction.objectStore('products');
+  store.createIndex('name', 'name', {unique: true});
+```
+
+Using the get method
+```javascript
+return dbPromise.then(function(db) {
+  var tx = db.transaction('products', 'readonly');
+  var store = tx.objectStore('products');
+  var index = store.index('name');
+  return index.get(key);
+});
+```
+
+Using a cursor object
+```javascript
+var lower = document.getElementById('priceLower').value;
+var upper = document.getElementById('priceUpper').value;
+var lowerNum = Number(document.getElementById('priceLower').value);
+var upperNum = Number(document.getElementById('priceUpper').value);
+
+if (lower === '' && upper === '') {return;}
+var range;
+if (lower !== '' && upper !== '') {
+  range = IDBKeyRange.bound(lowerNum, upperNum);
+} else if (lower === '') {
+  range = IDBKeyRange.upperBound(upperNum);
+} else {
+  range = IDBKeyRange.lowerBound(lowerNum);
+}
+var s = '';
+dbPromise.then(function(db) {
+  var tx = db.transaction('products', 'readonly');
+  var store = tx.objectStore('products');
+  var index = store.index('price');
+  return index.openCursor(range);
+}).then(function showRange(cursor) {
+  if (!cursor) {return;}
+  console.log('Cursored at:', cursor.value.name);
+  s += '<h2>Price - ' + cursor.value.price + '</h2><p>';
+  for (var field in cursor.value) {
+    s += field + '=' + cursor.value[field] + '<br/>';
+  }
+  s += '</p>';
+  return cursor.continue().then(showRange);
+}).then(function() {
+  if (s === '') {s = '<p>No results.</p>';}
+  document.getElementById('results').innerHTML = s;
+});
+```
+
+### Web workers
+
+Declaring and using a web worker
+```javascript
+var myWorker = new Worker("my_task.js");
+
+myWorker.addEventListener("message", function (oEvent) {
+  console.log("Called back by the worker!\n");
+}, false);
+
+myWorker.postMessage(""); // start the worker.
+```
 
 ## 6 Testing and Debugging
 [:point_up:](#google-mobile-web-specialist-certification-guide)
