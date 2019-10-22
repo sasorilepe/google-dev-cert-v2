@@ -645,15 +645,26 @@ dbPromise.then(function(db) {
 
 ### Web workers
 
-Declaring and using a web worker
+Script in `index.html`: Declaring a Worker
 ```javascript
-var myWorker = new Worker("my_task.js");
+// Initializing a Worker
+var myWorker = new Worker("js/my_task.js");
+// Retrieving data from Worker
+myWorker.onmessage = function (oEvent) {
+  console.log("Worker said : " + oEvent.data);
+};
+// Sending data to Worker
+myWorker.postMessage("ali");
+```
 
-myWorker.addEventListener("message", function (oEvent) {
-  console.log("Called back by the worker!\n");
-}, false);
-
-myWorker.postMessage(""); // start the worker.
+Script in `my_task.js`
+```javascript
+// This fires before recieving message
+postMessage("I\'m working before postMessage(\'ali\').");
+// This fires when message is received
+onmessage = function (oEvent) {
+  postMessage("Hi " + oEvent.data);
+};
 ```
 
 ## 6 Testing and Debugging
