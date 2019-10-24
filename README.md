@@ -348,6 +348,57 @@ app.use((req, res, next) => {
 * [Web Fundamentals -> Accessible Styles](https://developers.google.com/web/fundamentals/accessibility/accessible-styles)
 * [Web Fundamentals -> Hiding and Updating Content](https://developers.google.com/web/fundamentals/accessibility/semantics-aria/hiding-and-updating-content)
 
+### Keyboard Navigation
+
+Set the `tabindex` attribute to `0` to include an element in the browser’s keyboard tab sequence.
+```html
+<!-- Semantic button -->
+<button>
+  Click me!
+</button>
+<!-- Simulating a button -->
+<div role="button" tabindex="0">
+  Click me!
+</div>
+```
+
+### Labeling Form Controls and Interactive Elements
+
+We can provide contextual detail with `aria-label`.
+```html
+<!-- Self-labeled -->
+<button>
+  Submit
+</button>
+<!-- Using label -->
+<label for="lastName">
+  Last name:
+</label>
+<input id="lastName" type="text">
+<!-- Using aria-labelledby -->
+<div id="lastName">
+  Last name:
+</div>
+<div aria-labelledby="lastName" role="textbox">
+</div>
+```
+
+### Lists
+
+The list below uses ARIA roles to express the semantics of a list from a generic div structure.
+```html
+<!-- Semantic Lists Using HTML -->
+<ul>
+  <li>Eggs</li>
+  <li>Milk</li>
+</ul>
+<!-- Semantic List Using ARIA Roles -->
+<div role="list">
+  <div role="listitem">Eggs</div>
+  <div role="listitem">Milk</div>
+</div>
+```
+
 ## 4 Progressive Web Apps
 [:point_up:](#google-mobile-web-specialist-certification-guide)
 
